@@ -96,6 +96,8 @@
           '<div class="plats">' + esc(a.plat.join(" · ")) + "</div>" +
           '<div class="meta"><span>' + a.alts.length + ' alternatives</span>' +
           '<span><span class="heart">♥</span> ' + fmt(appLikes(a)) + "</span></div>" +
+          '<span style="display:inline-block;margin-top:10px;color:#2dd4bf;' +
+          'font-weight:600;font-size:13.5px">See alternatives →</span>' +
           "</a>";
       }).join("") + "</div>";
     }
@@ -176,6 +178,16 @@
       renderHome();
     }
   }
+
+  searchEl.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.keyCode === 13) {
+      var list = visibleApps();
+      if (list.length) {
+        e.preventDefault();
+        location.hash = "#/app/" + list[0].slug;
+      }
+    }
+  });
 
   searchEl.addEventListener("input", function () {
     searchText = searchEl.value;
